@@ -34,6 +34,8 @@ FROM
 WHERE
   row_num > 1;
 
+
+
 -- 2. Fix Structural errors
 -- Now we will look for any misspellings, incongruent naming conventions, improper capitalization for each data column.
 
@@ -44,7 +46,6 @@ SET
   company = TRIM(company);
 
 -- If we look at industry columns we will find some null and empty values.
--- Also you will that Crypto has different variations. 
 SELECT
   DISTINCT industry
 FROM
@@ -53,6 +54,7 @@ ORDER BY
   industry;
 
 -- Let take a look at null and empty values. There are 4 companies with null or empty industry values.
+-- These companies are: Carvana, Airbnb, Juul, Bally's Interactive.
 SELECT
   *
 FROM
@@ -61,25 +63,78 @@ WHERE
   industry IS NULL
   OR industry = 'NULL';
 
--- Lets run a query to see row with the same company name so we can update it with the correct company name.
+-- Lets run a query to see if there are other records for Carvana so we can update it to the correct industry.
 SELECT
   *
 FROM
   luisalva.lay_offs.layoff_staging
 WHERE
-company = 'Carvana';  
+  company = 'Carvana';  
 
--- We found other records for Carvana and it looks like it belongs to the travel industry. Lets updated the empty record.
- UPDATE
+-- We found other records for Carvana and it belongs to the travel industry. Lets updated the empty record.
+UPDATE
   luisalva.lay_offs.layoff_staging
 SET
   industry = 'Transportation'
 WHERE
   company = 'Carvana'; 
   
+-- Lets run a query to see if there are other records for Airbnb so we can update it to the correct industry.
+SELECT
+  *
+FROM
+  luisalva.lay_offs.layoff_staging
+WHERE
+  company = 'Airbnb';  
 
+-- There is another record for Airbnb and it belongs to the Travel industry. Let's update it.
+UPDATE
+  luisalva.lay_offs.layoff_staging
+SET
+  industry = 'Travel'
+WHERE
+  company = 'Airbnb'; 
 
-  
+-- Lets run a query to see if there are other records for Juul so we can update it to the correct industry.
+SELECT
+  *
+FROM
+  luisalva.lay_offs.layoff_staging
+WHERE
+  company = 'Juul'; 
+
+-- There is another record for Juul and it belongs to the Consumer industry. Let's update it.
+UPDATE
+  luisalva.lay_offs.layoff_staging
+SET
+  industry = 'Consumer'
+WHERE
+  company = 'Juul'; 
+
+-- Lets run a query to see if there are other records for Bally's Interactive so we can update it to the correct industry.
+SELECT
+  *
+FROM
+  luisalva.lay_offs.layoff_staging
+WHERE
+  company = "Bally's Interactive"; 
+
+-- There is no other record for Bally's Interactive, therefore we can't see what industry it belongs to.
+-- In this case, let's update to the Other industry type.
+UPDATE
+  luisalva.lay_offs.layoff_staging
+SET
+  industry = 'Other'
+WHERE
+  company = "Bally's Interactive";
+
+-- The Crypto industry has different variations: Crypto, Crypto Currency, CryptoCurrency.
+SELECT
+  DISTINCT industry
+FROM
+  luisalva.lay_offs.layoff_staging
+WHERE
+  CONTAINS(industry, 'Crypto');
 
 -- We need to standardize the Crypto entry. Let's name all Crypto.
 UPDATE
