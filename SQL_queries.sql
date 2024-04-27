@@ -34,9 +34,9 @@ FROM
 WHERE
   row_num > 1;
 
-
-
+----------------------------------------------------------------------------------------
 -- 2. Fix Structural errors
+
 -- Now we will look for any misspellings, incongruent naming conventions, improper capitalization for each data column.
 
 -- It looks like the company column has white spaces at the beginning for some of the names. Let's trim those white space.
@@ -45,6 +45,7 @@ UPDATE
 SET
   company = TRIM(company);
 
+---------------------------------------------------
 -- If we look at industry columns we will find some null and empty values.
 SELECT
   DISTINCT industry
@@ -62,6 +63,7 @@ FROM
 WHERE
   industry IS NULL
   OR industry = 'NULL';
+------------------------------------------------------
 
 -- Lets run a query to see if there are other records for Carvana so we can update it to the correct industry.
 SELECT
@@ -78,7 +80,8 @@ SET
   industry = 'Transportation'
 WHERE
   company = 'Carvana'; 
-  
+-------------------------------------------------------
+
 -- Lets run a query to see if there are other records for Airbnb so we can update it to the correct industry.
 SELECT
   *
@@ -94,6 +97,7 @@ SET
   industry = 'Travel'
 WHERE
   company = 'Airbnb'; 
+------------------------------------------------------------
 
 -- Lets run a query to see if there are other records for Juul so we can update it to the correct industry.
 SELECT
@@ -110,6 +114,7 @@ SET
   industry = 'Consumer'
 WHERE
   company = 'Juul'; 
+----------------------------------------------------------
 
 -- Lets run a query to see if there are other records for Bally's Interactive so we can update it to the correct industry.
 SELECT
@@ -127,6 +132,7 @@ SET
   industry = 'Other'
 WHERE
   company = "Bally's Interactive";
+----------------------------------------------------------------
 
 -- The Crypto industry has different variations: Crypto, Crypto Currency, CryptoCurrency.
 SELECT
@@ -143,9 +149,23 @@ SET
   industry = 'Crypto'
 WHERE
   industry IN ('Crypto Currency', 'CryptoCurrency');
+----------------------------------------------------------------------
 
+-- Now let's check the country column. There are two enries for United States ("United States" and "United States.")
+SELECT
+  DISTINCT country
+FROM
+  luisalva.lay_offs.layoff_staging
+ORDER BY
+  country;
 
-
+-- There are two enries for United States ("United States" and "United States."). Let's update it.
+UPDATE
+  luisalva.lay_offs.layoff_staging
+SET
+  country = 'United States'
+WHERE
+  country = 'United States.'
 
 
 
