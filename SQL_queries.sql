@@ -1,4 +1,6 @@
--- 1. Remove row duplicates
+----------------------------------------------- DATA CLEANING ------------------------------------------------------------
+
+-- 1. REMOVE DUPLICATES
 
 -- Let's check if there is any duplicates in the dataset. 
 -- To do this want to create a staging table where we can work and clean the data.
@@ -35,7 +37,7 @@ WHERE
   row_num > 1;
 
 ----------------------------------------------------------------------------------------------------------------------------
--- 2. Fix Structural errors
+-- 2. FIX ESTRUCTURAL ERRORS
 
 -- Now we will look for any misspellings, incongruent naming conventions, improper capitalization for each data column.
 
@@ -81,7 +83,7 @@ WHERE
   country = 'United States.'
 
 -------------------------------------------------------------------------------------------------------------------------------
--- 3. Examine NULL values
+-- 3. EXAMINE NULL VALUES
   
 -- Let's determine if the rows associated with the NULL values could be filled or left as is.
 
@@ -184,7 +186,12 @@ WHERE total_laid_off IS NULL
 AND percentage_laid_off IS NULL;
 
 -------------------------------------------------------------------------------------------------------------------------------
+-- 4. REMOVE UNNECESSARY ROWS AND COLUMNS
 
+-- In this oart of the data cleaning process we will only remobe the row_num column that was create to identify row duplicates.
+ALTER TABLE
+  luisalva.lay_offs.layoff_staging 
+DROP COLUMN row_num;
 
 
 
