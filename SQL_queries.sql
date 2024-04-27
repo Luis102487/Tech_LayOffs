@@ -34,7 +34,7 @@ FROM
 WHERE
   row_num > 1;
 
-----------------------------------------------------------------------------------------
+----------------------------------------------------------------------------------------------------------------------------
 -- 2. Fix Structural errors
 
 -- Now we will look for any misspellings, incongruent naming conventions, improper capitalization for each data column.
@@ -46,6 +46,45 @@ SET
   company = TRIM(company);
 
 ---------------------------------------------------
+
+-- The Crypto industry has different variations: Crypto, Crypto Currency, CryptoCurrency.
+SELECT
+  DISTINCT industry
+FROM
+  luisalva.lay_offs.layoff_staging
+WHERE
+  CONTAINS(industry, 'Crypto');
+
+-- We need to standardize the Crypto entry. Let's name all Crypto.
+UPDATE
+  luisalva.lay_offs.layoff_staging
+SET
+  industry = 'Crypto'
+WHERE
+  industry IN ('Crypto Currency', 'CryptoCurrency');
+----------------------------------------------------------------------
+
+-- Now let's check the country column. There are two enries for United States ("United States" and "United States.")
+SELECT
+  DISTINCT country
+FROM
+  luisalva.lay_offs.layoff_staging
+ORDER BY
+  country;
+
+-- There are two enries for United States ("United States" and "United States."). Let's update it.
+UPDATE
+  luisalva.lay_offs.layoff_staging
+SET
+  country = 'United States'
+WHERE
+  country = 'United States.'
+
+-------------------------------------------------------------------------------------------------------------------------------
+-- 3. Examine NULL values
+  
+-- Let's determine if the rows associated with the NULL values could be filled or left as is.
+
 -- If we look at industry columns we will find some null and empty values.
 SELECT
   DISTINCT industry
@@ -134,38 +173,18 @@ WHERE
   company = "Bally's Interactive";
 ----------------------------------------------------------------
 
--- The Crypto industry has different variations: Crypto, Crypto Currency, CryptoCurrency.
-SELECT
-  DISTINCT industry
+-- There are also null values in the total_laid_off, percentage_laid_off, date, stage, and funds_raised_millions columns.
+-- We will keep these null data as is since it we can still get insights from the rows associated with them. 
+-- However, the combination of null values total_laid_off and percentage_laid_off in the same row doesn't provide 
+-- any valuable insights. Let's remove these instances from the dataset.
+DELETE
 FROM
   luisalva.lay_offs.layoff_staging
-WHERE
-  CONTAINS(industry, 'Crypto');
+WHERE total_laid_off IS NULL
+AND percentage_laid_off IS NULL;
 
--- We need to standardize the Crypto entry. Let's name all Crypto.
-UPDATE
-  luisalva.lay_offs.layoff_staging
-SET
-  industry = 'Crypto'
-WHERE
-  industry IN ('Crypto Currency', 'CryptoCurrency');
-----------------------------------------------------------------------
+-------------------------------------------------------------------------------------------------------------------------------
 
--- Now let's check the country column. There are two enries for United States ("United States" and "United States.")
-SELECT
-  DISTINCT country
-FROM
-  luisalva.lay_offs.layoff_staging
-ORDER BY
-  country;
-
--- There are two enries for United States ("United States" and "United States."). Let's update it.
-UPDATE
-  luisalva.lay_offs.layoff_staging
-SET
-  country = 'United States'
-WHERE
-  country = 'United States.'
 
 
 
