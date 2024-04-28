@@ -147,7 +147,7 @@ ORDER BY
 
 
 
-fund_raised_milliosn
+
 
 
 WITH Company_Year AS 
