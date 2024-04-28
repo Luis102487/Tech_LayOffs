@@ -7,4 +7,5 @@ FROM
 GROUP BY
   company
 ORDER BY
-  SUM(total_laid_off) DESC;
+  SUM(total_laid_off) DESC
+LIMIT 1;
