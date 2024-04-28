@@ -1,25 +1,27 @@
--- Have many people have lost their jobs due to tech laid offs?
+-- Have many people have lost their jobs due to tech laid offs? Total laid offs
 SELECT
   SUM(total_laid_off) AS total_laid_off
 FROM
-  luisalva.lay_offs.lay_offs_staging
-
--- How many countries have face lay offs so far
-SELECT
-  COUNT(DISTINCT country) AS country_count
-FROM
   luisalva.lay_offs.lay_offs_staging;
 
-  -- total location.
-
-  -- Company with most rounds of laid offs
-
--- Time period of the dataset
+-- Time period of lay offs
 SELECT
   MIN(date) AS first_date,
   MAX(date) AS last_date
 FROM
   luisalva.lay_offs.lay_offs_staging;
+
+---------------------------------------------
+-- Laid offs by company
+SELECT
+  company,
+  SUM(total_laid_off) AS total_laid_off
+FROM
+  luisalva.lay_offs.lay_offs_staging
+GROUP BY
+  company
+ORDER BY
+  total_laid_off DESC;
 
 -- Company with biggest lay off
 SELECT
@@ -33,17 +35,42 @@ ORDER BY
   SUM(total_laid_off) DESC
 LIMIT 1;
 
--- Laid offs by industry
+-- Companies with most lay offs rounds
 SELECT
-  industry,
-  SUM(total_laid_off) AS total_laid_off
+  company,
+  COUNT(date) AS lay_offs_rounds
 FROM
   luisalva.lay_offs.lay_offs_staging
 GROUP BY
-  industry
+  company
+ORDER BY
+  lay_offs_rounds DESC;
+
+
+-- Companies that laid off 100% of their employees with total of employees laid off
+SELECT
+  company,
+  total_laid_off
+FROM
+  luisalva.lay_offs.lay_offs_staging
+WHERE
+  percentage_laid_off = 1
 ORDER BY
   total_laid_off DESC;
 
+
+-- How many millions were fund raised by companies that went under.
+SELECT
+  company,
+  funds_raised_millions
+FROM
+  luisalva.lay_offs.lay_offs_staging
+WHERE
+  percetange_laid_off = 1
+ORDER BY
+  funds_raised_millions DESC;
+
+------------------------------------------------
 -- Laid offs by country
 SELECT
   country,
@@ -55,6 +82,38 @@ GROUP BY
 ORDER BY
   total_laid_off DESC;
 
+-- How many countries have face lay offs so far
+SELECT
+  COUNT(DISTINCT country) AS country_count
+FROM
+  luisalva.lay_offs.lay_offs_staging;
+
+-- Top 3 countries with most lay offs locations
+SELECT
+  country,
+  COUNT(DISTINCT location) AS location_count
+FROM
+  luisalva.lay_offs.lay_offs_staging
+GROUP BY
+  country
+ORDER BY
+  location_count DESC
+LIMIT
+  3;
+
+--------------------------------------------------------
+-- Laid offs by industry
+SELECT
+  industry,
+  SUM(total_laid_off) AS total_laid_off
+FROM
+  luisalva.lay_offs.lay_offs_staging
+GROUP BY
+  industry
+ORDER BY
+  total_laid_off DESC;
+
+----------------------------------------------------------
 -- Laid offs by year
 SELECT
   EXTRACT(year
@@ -70,6 +129,7 @@ GROUP BY
 ORDER BY
   year;
 
+-----------------------------------------------------------
 -- Laid offs by stage
 SELECT
   stage,
@@ -85,9 +145,8 @@ ORDER BY
 
 
 
-what companies laid off the most each year
-Companies that went under.
-How many millions were raised by companies that went under.
+
+
 fund_raised_milliosn
 
 
