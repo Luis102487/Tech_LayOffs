@@ -12,7 +12,7 @@ The first part of this analysis will be the cleaning of the data. We will follow
 
 The second part will be the exploratory data analysis where I will try to understand important aspecs and trends from the layoff data.
 
-For the data cleaning SQL queries check the [SQL_queries_data_cleaning.sql]() file.
+For the data cleaning SQL queries check the [SQL_queries_data_cleaning.sql](https://github.com/Luis102487/Tech_LayOffs/blob/main/SQL_queries_data_cleaning.sql) file.
 
 
 For the SQL queries that answer these questions, check the [SQL_queries.sql](https://github.com/Luis102487/Northwind-Traders/blob/main/SQL_queries.sql) file.
