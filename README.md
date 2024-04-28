@@ -1,4 +1,4 @@
-* Tech Lay Offs
+# Tech Lay Offs
 
 Tech firms around the globe are facing lay offs. Slow consumer spending, higher interest rates, and strong dollars overseas are the reasons for this tech trend of laying employees off. This dataset was made with the hope to enable Kaggle community to look into analyzing recent tech turmoil and discover useful insights.
 
