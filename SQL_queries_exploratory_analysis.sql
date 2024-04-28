@@ -4,7 +4,11 @@ SELECT
 FROM
   luisalva.lay_offs.lay_offs_staging
 
-  -- total countries
+-- How many countries have face lay offs so far
+SELECT
+  COUNT(DISTINCT country) AS country_count
+FROM
+  luisalva.lay_offs.lay_offs_staging;
 
   -- total location.
 
