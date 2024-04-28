@@ -59,7 +59,7 @@ ORDER BY
   total_laid_off DESC;
 
 
--- How many millions were fund raised by companies that went under.
+-- Top 5 companies with the most millions funded that went under
 SELECT
   company,
   funds_raised_millions
@@ -68,7 +68,8 @@ FROM
 WHERE
   percetange_laid_off = 1
 ORDER BY
-  funds_raised_millions DESC;
+  funds_raised_millions DESC
+LIMIT 5;
 
 
 -- Companies with the most laid_off employees by year
