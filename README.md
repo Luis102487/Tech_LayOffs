@@ -14,5 +14,4 @@ The second part will be the exploratory data analysis where I will try to unders
 
 For the data cleaning SQL queries check the [SQL_queries_data_cleaning.sql](https://github.com/Luis102487/Tech_LayOffs/blob/main/SQL_queries_data_cleaning.sql) file.
 
-
-For the SQL queries that answer these questions, check the [SQL_queries.sql](https://github.com/Luis102487/Northwind-Traders/blob/main/SQL_queries.sql) file.
+For the exploratory analysis SQL queries check the [SQL_queries_exploratory_analysis.sql](https://github.com/Luis102487/Tech_LayOffs/blob/main/SQL_queries_exploratory_analysis.sql) file.
