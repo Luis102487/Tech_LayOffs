@@ -6,6 +6,6 @@ The purpose of this analysis is to undertand he recent tech turmoil and discover
 
 The first part of this analysis will be the cleaning of the data. We will follow the following steps:
 1. Check for duplicates
-2. standardize data and fix errors
-3. Look at null values and see what 
+2. Fix estructural errors
+3. Examine NULL values
 4. remove any columns and rows that are not necessary - few ways
