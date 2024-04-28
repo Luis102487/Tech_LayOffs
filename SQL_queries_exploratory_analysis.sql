@@ -1,3 +1,15 @@
+-- Have many people have lost their jobs due to tech laid offs?
+SELECT
+  SUM(total_laid_off) AS total_laid_off
+FROM
+  luisalva.lay_offs.lay_offs_staging
+
+  -- total countries
+
+  -- total location.
+
+  -- 
+
 -- Time period of the dataset
 SELECT
   MIN(date) AS first_date,
@@ -28,7 +40,7 @@ GROUP BY
 ORDER BY
   total_laid_off DESC;
 
--- Lay offs by country
+-- Laid offs by country
 SELECT
   country,
   SUM(total_laid_off) AS total_laid_off
@@ -38,6 +50,36 @@ GROUP BY
   country
 ORDER BY
   total_laid_off DESC;
+
+-- Laid offs by year
+SELECT
+  EXTRACT(year
+  FROM
+    date) AS year,
+  SUM(total_laid_off) AS total_laid_off
+FROM
+  luisalva.lay_offs.lay_offs_staging
+WHERE
+  date IS NOT NULL
+GROUP BY
+  year
+ORDER BY
+  year;
+
+-- Laid offs by stage
+SELECT
+  stage,
+  SUM(total_laid_off) AS total_laid_off
+FROM
+  luisalva.lay_offs.lay_offs_staging
+GROUP BY
+  stage
+ORDER BY
+  total_laid_off DESC;
+
+
+
+
 
 stage
 Companies that went under.
