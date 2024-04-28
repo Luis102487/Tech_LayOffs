@@ -8,7 +8,7 @@ FROM
 
   -- total location.
 
-  -- 
+  -- Company with most rounds of laid offs
 
 -- Time period of the dataset
 SELECT
