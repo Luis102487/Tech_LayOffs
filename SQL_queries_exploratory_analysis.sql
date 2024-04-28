@@ -81,7 +81,7 @@ ORDER BY
 
 
 
-stage
+what companies laid off the most each year
 Companies that went under.
 How many millions were raised by companies that went under.
 fund_raised_milliosn
