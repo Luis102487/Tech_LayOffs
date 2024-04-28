@@ -8,4 +8,6 @@ The first part of this analysis will be the cleaning of the data. We will follow
 1. Check for duplicates
 2. Fix estructural errors
 3. Examine NULL values
-4. remove any columns and rows that are not necessary - few ways
+4. Remove unnecessary rows and columns
+
+The second part will be the exploratory data part where we will explore questions such as...
